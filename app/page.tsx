@@ -423,7 +423,7 @@ export default function HomePage() {
                 Independent R&amp;D • Cybersecurity • Cloud • AI Security
               </div>
 
-              <h1>Protecting autonomous, AI-driven, and distributed systems.</h1>
+              <h1>Protecting Autonomous, AI-driven, and Distributed Systems.</h1>
 
               <p className="subtitle">
                 SynAccel is an independent research and development initiative focused
