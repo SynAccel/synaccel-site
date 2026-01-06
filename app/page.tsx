@@ -38,8 +38,8 @@ export default function Home() {
 
         {/* Mission statement */}
         <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/80 md:text-xl">
-          Independent research & development in cybersecurity, cloud automation,
-          and AI system resilience.
+          SynAccel is an independent research and development initiative focused on cybersecurity, 
+          cloud security, and AI security, with an emphasis on protecting autonomous, AI-driven, and distributed systems.
         </p>
 
         {/* Focus areas */}
