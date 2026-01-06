@@ -1,12 +1,6 @@
-export const metadata = {
-  title: "About | SynAccel",
-  description:
-    "SynAccel explores how cybersecurity must evolve as cloud-native, autonomous, and AI-enabled systems change.",
-};
-
 export default function AboutPage() {
   return (
-    <main className="wrap">
+    <>
       <style>{`
         :root{
           --bg: #070A12;
@@ -18,7 +12,7 @@ export default function AboutPage() {
           --accent: #6EA8FF;
           --accent2:#8BFFE8;
 
-          --max: 1120px;
+          --max: 980px;
           --radius: 18px;
           --shadow: 0 24px 80px rgba(0,0,0,.55);
           --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
@@ -33,11 +27,11 @@ export default function AboutPage() {
           background: var(--bg);
           overflow-x:hidden;
         }
-
         a{ color:inherit; text-decoration:none; }
+
         .wrap{ max-width: var(--max); margin:0 auto; padding: 0 18px; }
 
-        /* Background */
+        /* background (subtle, premium) */
         .bg{
           position: fixed;
           inset: 0;
@@ -52,7 +46,7 @@ export default function AboutPage() {
           content:"";
           position:absolute;
           inset:0;
-          opacity:.09;
+          opacity:.08;
           background-image:
             linear-gradient(rgba(234,240,255,.12) 1px, transparent 1px),
             linear-gradient(90deg, rgba(234,240,255,.12) 1px, transparent 1px);
@@ -60,7 +54,7 @@ export default function AboutPage() {
           mask-image: radial-gradient(1000px 520px at 50% 18%, rgba(0,0,0,.95), transparent 72%);
         }
 
-        /* Minimal header row (so About feels different than home) */
+        /* header */
         header{
           position: sticky;
           top:0;
@@ -80,7 +74,6 @@ export default function AboutPage() {
           display:flex;
           align-items:center;
           gap: 10px;
-          min-width: 200px;
         }
         .brand img{
           width: 28px;
@@ -92,7 +85,7 @@ export default function AboutPage() {
           font-weight: 750;
           letter-spacing: .2px;
         }
-        .navLinks{
+        .links{
           display:flex;
           align-items:center;
           gap: 18px;
@@ -101,27 +94,19 @@ export default function AboutPage() {
           flex-wrap: wrap;
           justify-content:center;
         }
-        .navLinks a{
+        .links a{
           padding: 10px 10px;
           border-radius: 12px;
           transition: background .15s ease, color .15s ease;
         }
-        .navLinks a:hover{
+        .links a:hover{
           color: var(--text);
           background: rgba(255,255,255,.05);
-        }
-        .navCta{
-          display:flex;
-          align-items:center;
-          gap: 10px;
-          justify-content:flex-end;
-          min-width: 200px;
         }
         .btn{
           display:inline-flex;
           align-items:center;
           justify-content:center;
-          gap: 10px;
           padding: 11px 14px;
           border-radius: 999px;
           border: 1px solid rgba(234,240,255,.14);
@@ -137,17 +122,11 @@ export default function AboutPage() {
           border-color: rgba(234,240,255,.24);
           background: rgba(255,255,255,.06);
         }
-        .btn.primary{
-          border-color: rgba(110,168,255,.40);
-          background: linear-gradient(90deg, rgba(110,168,255,.18), rgba(139,255,232,.10));
-        }
 
-        /* About page layout */
-        .page{
-          padding: 34px 0 70px;
-        }
+        /* page */
+        main{ padding: 34px 0 70px; }
+
         .hero{
-          margin-top: 20px;
           border: 1px solid var(--border);
           border-radius: calc(var(--radius) + 6px);
           background: linear-gradient(to bottom, rgba(255,255,255,.05), rgba(255,255,255,.02));
@@ -168,9 +147,9 @@ export default function AboutPage() {
         .heroInner{
           position: relative;
           z-index: 1;
-          padding: 42px 26px;
-          max-width: 880px;
+          padding: 40px 26px;
         }
+
         .kicker{
           display:inline-flex;
           align-items:center;
@@ -188,59 +167,75 @@ export default function AboutPage() {
           background: var(--accent);
           box-shadow: 0 0 18px rgba(110,168,255,.45);
         }
+
         h1{
-          margin: 16px 0 10px;
-          font-size: clamp(38px, 4.4vw, 56px);
-          line-height: 1.05;
-          letter-spacing: -0.8px;
+          margin: 14px 0 10px;
+          font-size: clamp(38px, 4.6vw, 56px);
+          line-height: 1.06;
+          letter-spacing: -1px;
         }
-        .lead{
+        .lede{
           margin: 0;
           color: var(--muted);
           font-size: 16px;
           line-height: 1.75;
-          max-width: 80ch;
+          max-width: 78ch;
         }
 
-        .content{
-          margin-top: 18px;
+        .sections{
+          margin-top: 14px;
           display:grid;
           grid-template-columns: 1fr;
-          gap: 14px;
+          gap: 12px;
         }
         .panel{
-          border: 1px solid var(--border);
+          border: 1px solid rgba(234,240,255,.10);
           border-radius: var(--radius);
           background: var(--panel);
-          padding: 20px;
-          max-width: 880px;
+          padding: 18px;
         }
         .panel h2{
-          margin: 0 0 10px;
+          margin:0 0 10px;
           font-size: 16px;
-          letter-spacing: -.1px;
+          letter-spacing: -.2px;
         }
         .panel p{
-          margin: 0;
+          margin:0;
           color: var(--muted);
+          line-height: 1.75;
           font-size: 15px;
-          line-height: 1.8;
         }
-        .panel p + p{ margin-top: 12px; }
 
-        .bullets{
-          margin: 10px 0 0;
-          padding-left: 18px;
+        .callout{
+          margin-top: 12px;
+          display:grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 12px;
+        }
+        .card{
+          border: 1px solid rgba(234,240,255,.10);
+          border-radius: 16px;
+          background: rgba(255,255,255,.03);
+          padding: 16px;
+        }
+        .card strong{
+          display:block;
+          font-size: 14px;
+          margin-bottom: 8px;
+          letter-spacing:.1px;
+        }
+        .card span{
           color: var(--muted);
-          line-height: 1.8;
-          font-size: 15px;
+          font-size: 14px;
+          line-height: 1.65;
+          display:block;
         }
 
         footer{
-          margin-top: 26px;
-          padding: 22px 0 36px;
+          margin-top: 18px;
           color: rgba(234,240,255,.55);
           border-top: 1px solid rgba(234,240,255,.08);
+          padding: 20px 0 10px;
           background: rgba(0,0,0,.12);
         }
         .foot{
@@ -260,7 +255,8 @@ export default function AboutPage() {
         .foot a:hover{ color: var(--text); }
 
         @media (max-width: 980px){
-          .navLinks{ display:none; }
+          .links{ display:none; }
+          .callout{ grid-template-columns: 1fr; }
         }
       `}</style>
 
@@ -274,58 +270,105 @@ export default function AboutPage() {
               <span className="name">SynAccel</span>
             </a>
 
-            <nav className="navLinks" aria-label="Primary">
+            <nav className="links" aria-label="Primary">
               <a href="/research">Research</a>
               <a href="/projects">Projects</a>
               <a href="/publications">Publications</a>
               <a href="/about">About</a>
             </nav>
 
-            <div className="navCta">
-              <a className="btn" href="https://github.com/SynAccel" target="_blank" rel="noreferrer">
-                GitHub
-              </a>
-              <a className="btn primary" href="/contact">Contact</a>
-            </div>
+            <a className="btn" href="https://github.com/SynAccel" target="_blank" rel="noreferrer">
+              GitHub
+            </a>
           </div>
         </div>
       </header>
 
-      <div className="page">
+      <main className="wrap">
         <section className="hero">
           <div className="heroInner">
             <div className="kicker"><span className="dot" /> About</div>
-            <h1>Studying the future of cybersecurity.</h1>
-            <p className="lead">
-              SynAccel was created to explore how cybersecurity must evolve as cloud-native infrastructure,
-              autonomous services, and AI-enabled systems reshape what “security” even means.
+
+            <h1>Studying where cybersecurity is going next.</h1>
+
+            <p className="lede">
+              SynAccel was created to explore how cybersecurity must evolve as systems themselves change.
+              Cloud-native infrastructure, autonomous services, and AI-enabled systems are reshaping attack surfaces,
+              trust boundaries, and defensive requirements. This initiative exists to study that transition early—
+              while new patterns are still forming.
             </p>
+
+            <div className="sections">
+              <div className="panel">
+                <h2>Why SynAccel Exists</h2>
+                <p>
+                  Security models that worked for static environments do not automatically generalize to modern,
+                  distributed systems operating at scale. As automation and AI become embedded into infrastructure,
+                  defense needs to anticipate emergent behavior, brittle assumptions, and new forms of adversarial pressure.
+                  SynAccel focuses on understanding those shifts before they become standardized.
+                </p>
+              </div>
+
+              <div className="panel">
+                <h2>What We Mean by “Looking Ahead”</h2>
+                <p>
+                  The future of cybersecurity will be shaped less by isolated vulnerabilities and more by system behavior:
+                  interactions between humans, automation, policies, and learning-based components. SynAccel asks practical questions—
+                  what breaks first, where assumptions fail, and how defenses should adapt when systems are autonomous, adaptive,
+                  or opaque by design.
+                </p>
+              </div>
+
+              <div className="panel">
+                <h2>How the Work Is Done</h2>
+                <p>
+                  Research is grounded in applied exploration: experimental prototypes, adversarial simulations,
+                  cloud automation experiments, and behavior analysis under stress. Unexpected outcomes and edge cases are
+                  treated as valuable signals. The goal is not marketing certainty—it’s technical clarity.
+                </p>
+              </div>
+
+              <div className="panel">
+                <h2>Independence</h2>
+                <p>
+                  SynAccel operates independently of vendors, product roadmaps, or consulting obligations.
+                  That independence makes it possible to explore uncomfortable findings, publish work-in-progress ideas,
+                  and let research direction evolve alongside the systems being studied.
+                </p>
+              </div>
+
+              <div className="callout">
+                <div className="card">
+                  <strong>What SynAccel is</strong>
+                  <span>
+                    A forward-looking security research initiative and experimental platform focused on cloud, AI,
+                    and resilient defensive systems.
+                  </span>
+                </div>
+
+                <div className="card">
+                  <strong>What SynAccel is not</strong>
+                  <span>
+                    A commercial product, a managed service, or a consulting firm.
+                    The work is exploratory by design.
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
-        <div className="content">
-          <section className="panel">
-            <h2>Why SynAccel Exists</h2>
-            <p>
-              Modern security models were largely designed for static infrastructure, predictable boundaries,
-              and human-centered decision-making. Those assumptions are increasingly misaligned with how systems
-              actually operate today.
-            </p>
-            <p>
-              SynAccel exists to study this transition early — to understand how attack surfaces and failure modes
-              change when systems become distributed, automated, and capable of making decisions at scale.
-            </p>
-          </section>
-
-          <section className="panel">
-            <h2>What We’re Trying to Understand</h2>
-            <p>
-              In the coming years, security challenges will be shaped less by isolated vulnerabilities and more by
-              emergent system behavior, automated decision-making, and shifting trust boundaries.
-            </p>
-            <ul className="bullets">
-              <li>Where do defensive assumptions fail first as automation increases?</li>
-              <li>How do distributed systems behave under adversarial pressure and cascading faults?</li>
-              <li>How should detection and response adapt when systems are autonomous or opaque by design?</li>
-              <liWhat the user wants: About page in Next.js. They asked “what is the coding inside page.tsx” and want single block; prior response gave full file. Now provide corrected (note typo in li tag seen). Need to fix that and provide final about page.tsx code. Keep consistent with capitalization preference: domain terms capitalized in title only; body lower. Provide single code block only.
-::contentReference[oaicite:0]{index=0}
+        <footer>
+          <div className="wrap foot">
+            <div>© {new Date().getFullYear()} SynAccel. Independent research initiative.</div>
+            <div className="footLinks">
+              <a href="/projects">Projects</a>
+              <a href="/research">Research</a>
+              <a href="/contact">Contact</a>
+            </div>
+          </div>
+        </footer>
+      </main>
+    </>
+  );
+}
