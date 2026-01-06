@@ -1,41 +1,125 @@
+import Image from "next/image";
+
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white text-neutral-900 flex flex-col items-center justify-center px-6">
-      {/* Hero */}
-      <section className="max-w-5xl text-center space-y-6">
-        <h1 className="text-5xl md:text-6xl font-semibold tracking-tight">
-          Syn<span className="text-cyan-500">Accel</span>
-        </h1>
+    <main className="relative min-h-screen overflow-hidden bg-black">
+      {/* Background image */}
+      <div className="absolute inset-0">
+        <Image
+          src="/synaccelopen2.png"
+          alt="SynAccel AI cyber background"
+          fill
+          priority
+          className="object-cover"
+        />
+      </div>
 
-        <p className="text-lg md:text-xl text-neutral-600">
-          Securing the future of autonomous, AI-driven, and distributed systems.
+      {/* Dark overlay for contrast */}
+      <div className="absolute inset-0 bg-black/65" />
+
+      {/* Optional subtle glow */}
+      <div className="absolute top-1/3 left-1/2 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-cyan-400/10 blur-3xl" />
+
+      {/* Content */}
+      <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col justify-center px-6 py-16">
+        {/* Header */}
+        <header className="flex items-center gap-4">
+          <Image
+            src="/github profile.png"
+            alt="SynAccel logo"
+            width={52}
+            height={52}
+            priority
+          />
+          <h1 className="text-4xl font-semibold tracking-tight text-white md:text-6xl">
+            SynAccel
+          </h1>
+        </header>
+
+        {/* Mission statement */}
+        <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/80 md:text-xl">
+          Independent research & development in cybersecurity, cloud automation,
+          and AI system resilience.
         </p>
 
-        <div className="flex items-center justify-center gap-4 pt-4">
-          <button className="px-6 py-3 rounded-full bg-cyan-500 text-white font-medium hover:bg-cyan-600 transition">
-            Explore Research
-          </button>
-
-          <button className="px-6 py-3 rounded-full border border-neutral-300 text-neutral-700 hover:border-neutral-500 transition">
-            View Projects
-          </button>
+        {/* Focus areas */}
+        <div className="mt-10 grid max-w-3xl grid-cols-1 gap-4 md:grid-cols-3">
+          <Feature
+            title="AI Security & Red Teaming"
+            body="Exploring adversarial pressure on modern AI systems."
+          />
+          <Feature
+            title="Cloud & Detection Engineering"
+            body="Automated telemetry, detection pipelines, and response logic."
+          />
+          <Feature
+            title="Autonomous Defense Research"
+            body="Adaptive, self-healing security models for the future."
+          />
         </div>
-      </section>
 
-      {/* Divider */}
-      <div className="w-full max-w-6xl my-20 border-t border-neutral-200" />
+        {/* CTAs */}
+        <div className="mt-10 flex flex-wrap gap-3">
+          <a
+            href="https://github.com/SynAccel"
+            className="rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-black hover:bg-white/90"
+          >
+            View GitHub
+          </a>
+          <a
+            href="#research"
+            className="rounded-2xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10"
+          >
+            Research
+          </a>
+        </div>
 
-      {/* Mission */}
-      <section className="max-w-4xl text-center space-y-4">
-        <h2 className="text-3xl font-semibold">Research-Driven Security</h2>
+        {/* Research section */}
+        <section id="research" className="mt-24">
+          <h2 className="text-2xl font-semibold text-white">
+            Research & Projects
+          </h2>
+          <p className="mt-2 max-w-2xl text-white/70">
+            Experimental systems, tools, and write-ups focused on real-world
+            defensive capability.
+          </p>
 
-        <p className="text-neutral-600 leading-relaxed">
-          SynAccel is an independent research initiative focused on AI security,
-          cloud automation, and adversarial resilience. We explore how modern
-          systems behave under pressure — and how to design them to adapt,
-          recover, and defend themselves in real time.
-        </p>
-      </section>
+          <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+            <Project
+              title="SynAccel Sentinel"
+              body="Cloud-native detection automation and alert validation."
+            />
+            <Project
+              title="SynAccel Bridge"
+              body="Telemetry ingestion and signal analysis experiments."
+            />
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer className="mt-24 text-sm text-white/50">
+          © {new Date().getFullYear()} SynAccel
+        </footer>
+      </div>
     </main>
+  );
+}
+
+function Feature({ title, body }: { title: string; body: string }) {
+  return (
+    <div className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur">
+      <div className="text-sm font-semibold text-white">{title}</div>
+      <div className="mt-2 text-sm text-white/70">{body}</div>
+    </div>
+  );
+}
+
+function Project({ title, body }: { title: string; body: string }) {
+  return (
+    <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+      <div className="text-base font-semibold text-white">{title}</div>
+      <div className="mt-2 text-sm text-white/70">{body}</div>
+      <div className="mt-4 text-xs text-white/40">In development</div>
+    </div>
   );
 }
