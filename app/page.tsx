@@ -25,7 +25,7 @@ export default function Home() {
         {/* Header */}
         <header className="flex items-center gap-4">
           <Image
-            src="/github profile.png"
+            src="/logo.png"
             alt="SynAccel logo"
             width={52}
             height={52}
