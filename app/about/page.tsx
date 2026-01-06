@@ -187,7 +187,7 @@ export default function AboutPage() {
           <div className="inner">
             <div className="kicker"><span className="dot" /> About</div>
 
-            <h1>Exploring the Next Era of Cybersecurity.</h1>
+            
 
             <p className="lede">
               SynAccel is an independent research and development initiative created to study how cybersecurity must evolve
