@@ -1,10 +1,10 @@
 // app/publications/[slug]/page.tsx
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getPublicationBySlug, publicationsSorted } from "../data";
+import { getPublicationBySlug, publicationsSorted, normalizeSlug } from "../data";
 
 export async function generateStaticParams() {
-  // Keep the raw slugs here; Next will handle the route params.
+  // Return canonical slugs only (no encoding here)
   return publicationsSorted.map((p) => ({ slug: p.slug }));
 }
 
@@ -12,12 +12,6 @@ function formatDate(dateStr: string) {
   const [y, m, d] = dateStr.split("-").map(Number);
   const dt = new Date(y, (m ?? 1) - 1, d ?? 1);
   return dt.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
-}
-
-function normalizeSlug(slug: string) {
-  // Decode any URL encoding and normalize casing/whitespace for matching.
-  // This prevents 404s caused by “smart” quotes, URL-encoded chars, or case differences.
-  return decodeURIComponent(slug).trim().toLowerCase();
 }
 
 function ContentBlock({
@@ -55,16 +49,16 @@ function ContentBlock({
 }
 
 export default function PublicationArticlePage({ params }: { params: { slug: string } }) {
-  const slug = normalizeSlug(params.slug);
+  const requested = normalizeSlug(params.slug);
+  const post = getPublicationBySlug(requested);
 
-  // IMPORTANT: your getPublicationBySlug should match using the same normalization.
-  // Even if it doesn’t yet, this still helps prevent decode/case mismatches.
-  const post = getPublicationBySlug(slug);
-
-  if (!post) return notFound();
+  if (!post) {
+    // Optional: if you want a friendlier error than 404, replace notFound() with a page.
+    return notFound();
+  }
 
   return (
-    <main className="min-h-screen bg-[#070A0F] text-white">
+    <main className="min-h-[100dvh] bg-[#070A0F] text-white">
       <article className="mx-auto max-w-3xl px-6 pt-14 pb-20">
         <Link href="/publications" className="text-sm text-white/60 hover:text-white/80 transition">
           ← Back to publications
@@ -98,8 +92,8 @@ export default function PublicationArticlePage({ params }: { params: { slug: str
         </header>
 
         <section className="mt-8">
-          {post.content.map((block: any, idx: number) => (
-            <ContentBlock key={idx} block={block} />
+          {post.content.map((block, idx) => (
+            <ContentBlock key={idx} block={block as any} />
           ))}
         </section>
 
@@ -129,5 +123,4 @@ export default function PublicationArticlePage({ params }: { params: { slug: str
     </main>
   );
 }
-
 
