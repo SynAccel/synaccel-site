@@ -1,58 +1,56 @@
 import Link from "next/link";
 import { publicationsSorted } from "./data";
 
+function formatDate(dateStr: string) {
+  const [y, m, d] = dateStr.split("-").map(Number);
+  const dt = new Date(y, (m ?? 1) - 1, d ?? 1);
+  return dt.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+}
+
 export default function PublicationsPage() {
   return (
     <main className="container">
-      {/* Header */}
-      <header className="max-w-4xl mx-auto mb-14">
-        <h1 className="text-3xl md:text-4xl font-semibold">
-          Publications
-        </h1>
-        <p className="mt-3 text-muted text-lg">
-          Long-form research, analysis, and technical writing from SynAccel.
-        </p>
-      </header>
+      {/* Big framed card like About */}
+      <section className="card max-w-5xl mx-auto p-8 md:p-10">
+        <header className="mb-8">
+          <h1 className="text-3xl md:text-4xl font-semibold">Publications</h1>
+          <p className="mt-3 text-muted text-lg">
+            Long-form research, analysis, and technical writing from SynAccel.
+          </p>
+          <div className="mt-6 border-t border-[var(--border)] opacity-70" />
+        </header>
 
-      {/* Publications Grid */}
-      <section className="grid gap-8 max-w-4xl mx-auto">
-        {publicationsSorted.map((pub) => (
-          <article
-            key={pub.slug}
-            className="
-              card
-              p-8
-              flex
-              flex-col
-              gap-4
-              hover:shadow-lg
-              transition
-            "
-          >
-            <h2 className="text-2xl font-semibold leading-tight">
-              {pub.title}
-            </h2>
+        <div className="grid gap-0">
+          {publicationsSorted.map((pub, idx) => (
+            <article key={pub.slug} className="py-7">
+              <div className="flex flex-col gap-3">
+                <h2 className="text-xl md:text-2xl font-semibold leading-snug">
+                  {pub.title}
+                </h2>
 
-            <p className="text-muted text-base">
-              {pub.description}
-            </p>
+                <p className="text-muted max-w-3xl">
+                  {pub.description}
+                </p>
 
-            <div className="flex items-center justify-between text-sm text-muted pt-2">
-              <span>{pub.readingTime}</span>
-              <span>{pub.date}</span>
-            </div>
+                <div className="mt-2 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted">
+                  <span>{pub.readingTime}</span>
+                  <span>{formatDate(pub.date)}</span>
+                </div>
 
-            <div className="pt-4">
-              <Link
-                href={`/publications/${pub.slug}`}
-                className="btn-primary inline-flex items-center gap-2"
-              >
-                Read article
-                <span aria-hidden>→</span>
-              </Link>
-            </div>
-          </article>
-        ))}
+                <div className="mt-3">
+                  <Link href={`/publications/${pub.slug}`} className="btn-primary inline-flex items-center gap-2">
+                    Read article <span aria-hidden>→</span>
+                  </Link>
+                </div>
+              </div>
+
+              {/* Divider between items */}
+              {idx !== publicationsSorted.length - 1 && (
+                <div className="mt-7 border-t border-[var(--border)] opacity-60" />
+              )}
+            </article>
+          ))}
+        </div>
       </section>
     </main>
   );
