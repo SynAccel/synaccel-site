@@ -1,10 +1,10 @@
 // app/publications/[slug]/page.tsx
-
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPublicationBySlug, publicationsSorted } from "../data";
 
 export async function generateStaticParams() {
+  // Keep the raw slugs here; Next will handle the route params.
   return publicationsSorted.map((p) => ({ slug: p.slug }));
 }
 
@@ -12,6 +12,12 @@ function formatDate(dateStr: string) {
   const [y, m, d] = dateStr.split("-").map(Number);
   const dt = new Date(y, (m ?? 1) - 1, d ?? 1);
   return dt.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+}
+
+function normalizeSlug(slug: string) {
+  // Decode any URL encoding and normalize casing/whitespace for matching.
+  // This prevents 404s caused by “smart” quotes, URL-encoded chars, or case differences.
+  return decodeURIComponent(slug).trim().toLowerCase();
 }
 
 function ContentBlock({
@@ -48,12 +54,13 @@ function ContentBlock({
   return null;
 }
 
-export default function PublicationArticlePage({
-  params
-}: {
-  params: { slug: string };
-}) {
-  const post = getPublicationBySlug(params.slug);
+export default function PublicationArticlePage({ params }: { params: { slug: string } }) {
+  const slug = normalizeSlug(params.slug);
+
+  // IMPORTANT: your getPublicationBySlug should match using the same normalization.
+  // Even if it doesn’t yet, this still helps prevent decode/case mismatches.
+  const post = getPublicationBySlug(slug);
+
   if (!post) return notFound();
 
   return (
@@ -74,9 +81,7 @@ export default function PublicationArticlePage({
             {post.title}
           </h1>
 
-          {post.subtitle && (
-            <p className="mt-3 text-white/70 leading-7">{post.subtitle}</p>
-          )}
+          {post.subtitle && <p className="mt-3 text-white/70 leading-7">{post.subtitle}</p>}
 
           <div className="mt-5 flex flex-wrap gap-2">
             {post.tags.map((t) => (
@@ -93,8 +98,8 @@ export default function PublicationArticlePage({
         </header>
 
         <section className="mt-8">
-          {post.content.map((block, idx) => (
-            <ContentBlock key={idx} block={block as any} />
+          {post.content.map((block: any, idx: number) => (
+            <ContentBlock key={idx} block={block} />
           ))}
         </section>
 
@@ -102,7 +107,7 @@ export default function PublicationArticlePage({
           <div className="text-sm text-white/70">About the author</div>
           <div className="mt-2 text-lg font-semibold">Nicholas D’Acri</div>
           <div className="mt-1 text-white/70">
-            Founder, SynAccel — independent applied R&D in AI security, cloud automation, and autonomous systems.
+            Founder, SynAccel — independent applied R&amp;D in AI security, cloud automation, and autonomous systems.
           </div>
 
           <div className="mt-4 flex flex-wrap gap-3">
@@ -124,4 +129,5 @@ export default function PublicationArticlePage({
     </main>
   );
 }
+
 
