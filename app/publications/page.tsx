@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getAllPublications } from "./mdx";
+import { publications } from "./registry";
 
 export const metadata = {
   title: "Publications | SynAccel",
@@ -13,7 +13,6 @@ function formatDate(dateStr: string) {
 }
 
 export default function PublicationsPage() {
-  const publications = getAllPublications();
   const featured = publications[0];
   const rest = publications.slice(1);
 
@@ -38,11 +37,11 @@ export default function PublicationsPage() {
             }}
           >
             <div className="flex flex-wrap items-center gap-2 text-xs text-[color:var(--muted)]">
-              <span>{formatDate(featured.frontmatter.date)}</span>
-              {featured.frontmatter.readTime && (
+              <span>{formatDate(featured.meta.date)}</span>
+              {featured.meta.readTime && (
                 <>
                   <span>•</span>
-                  <span>{featured.frontmatter.readTime}</span>
+                  <span>{featured.meta.readTime}</span>
                 </>
               )}
               <span
@@ -58,21 +57,19 @@ export default function PublicationsPage() {
             </div>
 
             <h2 className="mt-3 text-2xl md:text-3xl font-semibold leading-tight">
-              {featured.frontmatter.title}
+              {featured.meta.title}
             </h2>
 
-            {featured.frontmatter.subtitle && (
-              <p className="mt-3 text-[color:var(--muted)]">{featured.frontmatter.subtitle}</p>
+            {featured.meta.subtitle && (
+              <p className="mt-3 text-[color:var(--muted)]">{featured.meta.subtitle}</p>
             )}
 
-            {featured.frontmatter.excerpt && (
-              <p className="mt-3 text-[color:var(--muted)] max-w-3xl">
-                {featured.frontmatter.excerpt}
-              </p>
+            {featured.meta.excerpt && (
+              <p className="mt-3 text-[color:var(--muted)] max-w-3xl">{featured.meta.excerpt}</p>
             )}
 
             <div className="mt-5 flex flex-wrap gap-2">
-              {(featured.frontmatter.tags ?? []).map((t) => (
+              {(featured.meta.tags ?? []).map((t) => (
                 <span
                   key={t}
                   className="rounded-full px-3 py-1 text-xs"
@@ -89,7 +86,7 @@ export default function PublicationsPage() {
 
             <div className="mt-6">
               <Link
-                href={`/publications/${encodeURIComponent(featured.slug)}`}
+                href={`/publications/${featured.slug}`}
                 className="inline-flex items-center justify-center rounded-full px-5 py-2 text-sm transition"
                 style={{
                   border: "1px solid rgba(110,168,255,.40)",
@@ -112,7 +109,7 @@ export default function PublicationsPage() {
               {rest.map((p) => (
                 <Link
                   key={p.slug}
-                  href={`/publications/${encodeURIComponent(p.slug)}`}
+                  href={`/publications/${p.slug}`}
                   className="rounded-2xl p-5 transition"
                   style={{
                     border: "1px solid rgba(234,240,255,.10)",
@@ -120,19 +117,19 @@ export default function PublicationsPage() {
                   }}
                 >
                   <div className="flex items-center gap-2 text-xs text-[color:var(--muted)]">
-                    <span>{formatDate(p.frontmatter.date)}</span>
-                    {p.frontmatter.readTime && (
+                    <span>{formatDate(p.meta.date)}</span>
+                    {p.meta.readTime && (
                       <>
                         <span>•</span>
-                        <span>{p.frontmatter.readTime}</span>
+                        <span>{p.meta.readTime}</span>
                       </>
                     )}
                   </div>
 
-                  <div className="mt-2 text-lg font-semibold leading-snug">{p.frontmatter.title}</div>
+                  <div className="mt-2 text-lg font-semibold leading-snug">{p.meta.title}</div>
 
-                  {p.frontmatter.excerpt && (
-                    <div className="mt-2 text-sm text-[color:var(--muted)]">{p.frontmatter.excerpt}</div>
+                  {p.meta.excerpt && (
+                    <div className="mt-2 text-sm text-[color:var(--muted)]">{p.meta.excerpt}</div>
                   )}
                 </Link>
               ))}
@@ -143,6 +140,7 @@ export default function PublicationsPage() {
     </main>
   );
 }
+
 
 
 
