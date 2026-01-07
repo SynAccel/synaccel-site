@@ -1,11 +1,10 @@
-// app/publications/[slug]/page.tsx
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getPublicationBySlug, publicationsSorted, normalizeSlug } from "../data";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import { getAllPublications, getPublicationBySlug } from "../mdx";
 
 export async function generateStaticParams() {
-  // Return canonical slugs only (no encoding here)
-  return publicationsSorted.map((p) => ({ slug: p.slug }));
+  return getAllPublications().map((p) => ({ slug: p.slug }));
 }
 
 function formatDate(dateStr: string) {
@@ -14,48 +13,11 @@ function formatDate(dateStr: string) {
   return dt.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
 }
 
-function ContentBlock({
-  block
-}: {
-  block:
-    | { type: "p"; text: string }
-    | { type: "h2"; text: string }
-    | { type: "ul"; items: string[] }
-    | { type: "quote"; text: string };
-}) {
-  if (block.type === "h2") {
-    return <h2 className="mt-10 text-xl md:text-2xl font-semibold">{block.text}</h2>;
-  }
-  if (block.type === "p") {
-    return <p className="mt-4 text-white/80 leading-7">{block.text}</p>;
-  }
-  if (block.type === "quote") {
-    return (
-      <div className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-5">
-        <p className="text-white/85 italic leading-7">“{block.text}”</p>
-      </div>
-    );
-  }
-  if (block.type === "ul") {
-    return (
-      <ul className="mt-5 list-disc pl-6 space-y-2 text-white/80 leading-7">
-        {block.items.map((it) => (
-          <li key={it}>{it}</li>
-        ))}
-      </ul>
-    );
-  }
-  return null;
-}
-
 export default function PublicationArticlePage({ params }: { params: { slug: string } }) {
-  const requested = normalizeSlug(params.slug);
-  const post = getPublicationBySlug(requested);
+  const post = getPublicationBySlug(params.slug);
+  if (!post) return notFound();
 
-  if (!post) {
-    // Optional: if you want a friendlier error than 404, replace notFound() with a page.
-    return notFound();
-  }
+  const fm = post.frontmatter;
 
   return (
     <main className="min-h-[100dvh] bg-[#070A0F] text-white">
@@ -66,35 +28,40 @@ export default function PublicationArticlePage({ params }: { params: { slug: str
 
         <header className="mt-6">
           <div className="flex flex-wrap items-center gap-2 text-xs text-white/60">
-            <span>{formatDate(post.date)}</span>
-            <span>•</span>
-            <span>{post.readTime}</span>
+            <span>{formatDate(fm.date)}</span>
+            {fm.readTime && (
+              <>
+                <span>•</span>
+                <span>{fm.readTime}</span>
+              </>
+            )}
           </div>
 
           <h1 className="mt-3 text-3xl md:text-4xl font-semibold tracking-tight leading-tight">
-            {post.title}
+            {fm.title}
           </h1>
 
-          {post.subtitle && <p className="mt-3 text-white/70 leading-7">{post.subtitle}</p>}
+          {fm.subtitle && <p className="mt-3 text-white/70 leading-7">{fm.subtitle}</p>}
 
-          <div className="mt-5 flex flex-wrap gap-2">
-            {post.tags.map((t) => (
-              <span
-                key={t}
-                className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70"
-              >
-                {t}
-              </span>
-            ))}
-          </div>
+          {fm.tags && fm.tags.length > 0 && (
+            <div className="mt-5 flex flex-wrap gap-2">
+              {fm.tags.map((t) => (
+                <span
+                  key={t}
+                  className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70"
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+          )}
 
           <div className="mt-8 h-px w-full bg-white/10" />
         </header>
 
-        <section className="mt-8">
-          {post.content.map((block, idx) => (
-            <ContentBlock key={idx} block={block as any} />
-          ))}
+        {/* MDX content */}
+        <section className="mt-8 text-white/85 leading-7">
+          <MDXRemote source={post.content} />
         </section>
 
         <footer className="mt-14 rounded-2xl border border-white/10 bg-white/5 p-6">
@@ -123,4 +90,3 @@ export default function PublicationArticlePage({ params }: { params: { slug: str
     </main>
   );
 }
-
