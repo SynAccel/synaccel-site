@@ -173,3 +173,78 @@ footer{
 
 .foot a{ color: rgba(234,240,255,.70); }
 .foot a:hover{ color: var(--text); }
+
+
+/* ------------------ */
+/* iOS SAFE AREA FIX */
+/* ------------------ */
+
+.safe-area-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.ios-smooth {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ------------------ */
+/* MOBILE VISIBILITY */
+/* ------------------ */
+
+.desktop-only {
+  display: flex;
+}
+
+.mobile-only {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none !important;
+  }
+
+  .mobile-only {
+    display: block;
+  }
+}
+
+/* ------------------ */
+/* MOBILE MENU */
+/* ------------------ */
+
+.mobileMenu summary {
+  font-size: 1.6rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.mobilePanel {
+  position: absolute;
+  right: 1rem;
+  top: 3.5rem;
+  background: rgba(10, 14, 24, 0.95);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  min-width: 180px;
+  z-index: 1000;
+}
+
+.mobilePanel a {
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+}
+
+.mobilePanel a:hover {
+  background: rgba(255,255,255,0.08);
+}
+
