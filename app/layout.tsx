@@ -3,11 +3,17 @@ import Link from "next/link";
 
 export const metadata = {
   title: "SynAccel",
-  description: "Independent applied R&D in AI security, cloud automation, and autonomous systems.",
+  description: "Independent applied R&D in AI security, cloud automation, and autonomous systems."
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover"
 };
 
 export default function RootLayout({
-  children,
+  children
 }: {
   children: React.ReactNode;
 }) {
@@ -15,12 +21,12 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body>
+      <body className="ios-smooth">
         {/* Global background */}
         <div className="bg" />
 
         {/* Global Header */}
-        <header>
+        <header className="safe-area-top">
           <div className="wrap">
             <div className="nav">
               <Link className="brand" href="/">
@@ -28,14 +34,16 @@ export default function RootLayout({
                 <span className="name">SynAccel</span>
               </Link>
 
-              <nav className="links" aria-label="Primary">
+              {/* Desktop Nav */}
+              <nav className="links desktop-only" aria-label="Primary">
                 <Link href="/research">Research</Link>
                 <Link href="/projects">Projects</Link>
                 <Link href="/publications">Publications</Link>
                 <Link href="/about">About</Link>
               </nav>
 
-              <div className="navCta">
+              {/* Desktop CTA */}
+              <div className="navCta desktop-only">
                 <a
                   className="btn"
                   href="https://github.com/SynAccel"
@@ -48,15 +56,36 @@ export default function RootLayout({
                   Contact
                 </Link>
               </div>
+
+              {/* Mobile Menu */}
+              <details className="mobile-only mobileMenu">
+                <summary aria-label="Open menu">☰</summary>
+                <div className="mobilePanel">
+                  <Link href="/research">Research</Link>
+                  <Link href="/projects">Projects</Link>
+                  <Link href="/publications">Publications</Link>
+                  <Link href="/about">About</Link>
+                  <Link href="/contact">Contact</Link>
+                  <a
+                    href="https://github.com/SynAccel"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    GitHub
+                  </a>
+                </div>
+              </details>
             </div>
           </div>
         </header>
 
         {/* Page Content */}
-        {children}
+        <main className="safe-area-bottom min-h-[100dvh]">
+          {children}
+        </main>
 
         {/* Global Footer */}
-        <footer>
+        <footer className="safe-area-bottom">
           <div className="wrap foot">
             <div>© {year} SynAccel. Independent research initiative.</div>
             <div className="footLinks">
@@ -77,5 +106,3 @@ export default function RootLayout({
     </html>
   );
 }
-
-
