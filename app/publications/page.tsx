@@ -13,6 +13,11 @@ function formatDate(dateStr: string) {
   return dt.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
 }
 
+function safeSlug(slug: string) {
+  // Ensure the URL is safe even if someone accidentally uses special chars in the slug
+  return encodeURIComponent(slug.trim());
+}
+
 export default function PublicationsPage() {
   const featured = publicationsSorted[0];
   const rest = publicationsSorted.slice(1);
@@ -54,13 +59,9 @@ export default function PublicationsPage() {
               </span>
             </div>
 
-            <h2 className="mt-3 text-2xl md:text-3xl font-semibold leading-tight">
-              {featured.title}
-            </h2>
+            <h2 className="mt-3 text-2xl md:text-3xl font-semibold leading-tight">{featured.title}</h2>
 
-            {featured.subtitle && (
-              <p className="mt-3 text-[color:var(--muted)]">{featured.subtitle}</p>
-            )}
+            {featured.subtitle && <p className="mt-3 text-[color:var(--muted)]">{featured.subtitle}</p>}
 
             <p className="mt-3 text-[color:var(--muted)] max-w-3xl">{featured.excerpt}</p>
 
@@ -82,7 +83,7 @@ export default function PublicationsPage() {
 
             <div className="mt-6">
               <Link
-                href={`/publications/${featured.slug}`}
+                href={`/publications/${safeSlug(featured.slug)}`}
                 className="inline-flex items-center justify-center rounded-full px-5 py-2 text-sm transition"
                 style={{
                   border: "1px solid rgba(110,168,255,.40)",
@@ -108,7 +109,7 @@ export default function PublicationsPage() {
               {rest.map((p) => (
                 <Link
                   key={p.slug}
-                  href={`/publications/${p.slug}`}
+                  href={`/publications/${safeSlug(p.slug)}`}
                   className="rounded-2xl p-5 transition"
                   style={{
                     border: "1px solid rgba(234,240,255,.10)",
@@ -147,5 +148,6 @@ export default function PublicationsPage() {
     </main>
   );
 }
+
 
 
