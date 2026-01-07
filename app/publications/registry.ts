@@ -1,4 +1,5 @@
-import Evolution, { meta as evolutionMeta } from "@/content/publications/evolution-of-cybersecurity.mdx";
+import Evolution, { meta as evolutionMeta } from "../../content/publications/evolution-of-cybersecurity.mdx";
+
 
 export type PublicationMeta = {
   title: string;
