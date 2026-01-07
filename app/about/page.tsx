@@ -1,92 +1,50 @@
+// app/about/page.tsx
+export const metadata = {
+  title: "About | SynAccel",
+  description: "SynAccel is an independent applied R&D initiative focused on AI security, cloud automation, and resilient systems.",
+};
+
 export default function AboutPage() {
-  const year = new Date().getFullYear();
-
   return (
-    <>
+    <main className="wrap">
       <style>{`
-        :root{
-          --bg: #070A12;
-          --text: #EAF0FF;
-          --muted: rgba(234,240,255,.70);
-          --border: rgba(234,240,255,.10);
-          --accent: #6EA8FF;
+        main{ padding: 34px 0 60px; }
 
-          --max: 880px;
-          --radius: 18px;
-          --shadow: 0 24px 90px rgba(0,0,0,.55);
-          --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-        }
-
-        *{ box-sizing:border-box; }
-        html,body{ height:100%; }
-        body{
-          margin:0;
-          font-family: var(--font);
-          color: var(--text);
-          background: var(--bg);
-          overflow-x:hidden;
-        }
-        a{ color:inherit; text-decoration:none; }
-        .wrap{ max-width: var(--max); margin:0 auto; padding: 0 18px; }
-
-        /* Quiet background: single glow, no grid */
-        .bg{
-          position: fixed;
-          inset: 0;
-          z-index: -1;
-          pointer-events: none;
-          background:
-            radial-gradient(900px 520px at 20% 10%, rgba(110,168,255,.14), transparent 60%),
-            radial-gradient(900px 520px at 80% 85%, rgba(110,168,255,.06), transparent 62%);
-        }
-
-        header{
-          position: sticky;
-          top:0;
-          z-index: 50;
-          backdrop-filter: blur(10px);
-          background: rgba(7,10,18,.72);
-          border-bottom: 1px solid rgba(234,240,255,.08);
-        }
-        .nav{
-          height: 70px;
-          display:flex;
-          align-items:center;
-          justify-content:space-between;
-          gap: 14px;
-        }
-        .brand{
-          display:flex;
-          align-items:center;
-          gap: 10px;
-          font-weight: 750;
-          letter-spacing:.2px;
-        }
-        .brand img{ width: 28px; height: 28px; object-fit: contain; opacity:.95; }
-        .navRight{ display:flex; gap: 10px; align-items:center; }
-        .link{
-          font-size: 14px;
-          color: rgba(234,240,255,.78);
-          padding: 10px 10px;
-          border-radius: 12px;
-        }
-        .link:hover{ color: var(--text); background: rgba(255,255,255,.05); }
-
-        main{ padding: 54px 0 70px; }
-
-        .card{
+        .panel{
+          margin-top: 26px;
           border: 1px solid var(--border);
           border-radius: calc(var(--radius) + 6px);
-          background: rgba(255,255,255,.03);
+          background: linear-gradient(to bottom, rgba(255,255,255,.05), rgba(255,255,255,.02));
           box-shadow: var(--shadow);
           overflow:hidden;
+          position: relative;
         }
-        .inner{ padding: 46px 26px 30px; }
+        .panel::before{
+          content:"";
+          position:absolute;
+          inset:-2px;
+          background:
+            radial-gradient(700px 300px at 20% 20%, rgba(110,168,255,.14), transparent 55%),
+            radial-gradient(700px 320px at 85% 70%, rgba(139,255,232,.08), transparent 60%);
+          opacity:.85;
+          pointer-events:none;
+        }
+
+        .inner{
+          position: relative;
+          z-index: 1;
+          padding: 34px 26px;
+          max-width: 920px;
+        }
 
         .kicker{
           display:inline-flex;
           align-items:center;
           gap: 10px;
+          padding: 8px 12px;
+          border-radius: 999px;
+          border: 1px solid rgba(234,240,255,.12);
+          background: rgba(0,0,0,.20);
           color: rgba(234,240,255,.70);
           font-size: 13px;
           letter-spacing:.2px;
@@ -98,141 +56,84 @@ export default function AboutPage() {
         }
 
         h1{
-          margin: 14px 0 12px;
-          font-size: clamp(44px, 5vw, 66px);
-          line-height: 1.03;
-          letter-spacing: -1px;
+          margin: 14px 0 10px;
+          font-size: clamp(32px, 4vw, 46px);
+          line-height: 1.05;
+          letter-spacing: -0.6px;
         }
-        .lede{
+        p{
           margin: 0;
-          color: var(--muted);
-          font-size: 16px;
-          line-height: 1.85;
-          max-width: 74ch;
-        }
-
-        .rule{ height: 1px; background: rgba(234,240,255,.10); margin: 22px 0; }
-
-        /* Editorial “principles” list (not cards) */
-        .list{
-          display:grid;
-          gap: 14px;
-          max-width: 74ch;
-        }
-        .row{
-          display:grid;
-          grid-template-columns: 160px 1fr;
-          gap: 16px;
-          align-items:start;
-        }
-        .label{
-          color: rgba(234,240,255,.78);
-          font-size: 13px;
-          letter-spacing:.2px;
-          text-transform: uppercase;
-          padding-top: 3px;
-        }
-        .value{
           color: var(--muted);
           font-size: 15px;
           line-height: 1.75;
+          max-width: 78ch;
         }
 
-        footer{
-          margin-top: 18px;
-          color: rgba(234,240,255,.55);
-          font-size: 13px;
-          padding: 18px 0 0;
+        .divider{
+          margin: 22px 0;
+          height: 1px;
+          background: rgba(234,240,255,.10);
         }
-        .foot{
-          display:flex;
-          align-items:center;
-          justify-content:space-between;
-          gap: 12px;
-          flex-wrap: wrap;
-          border-top: 1px solid rgba(234,240,255,.08);
-          padding-top: 18px;
+
+        .rows{
+          display:grid;
+          grid-template-columns: 180px 1fr;
+          gap: 14px 18px;
+          align-items:start;
         }
-        .foot a{ color: rgba(234,240,255,.70); }
-        .foot a:hover{ color: var(--text); }
+        .label{
+          font-size: 12px;
+          letter-spacing: .12em;
+          text-transform: uppercase;
+          color: rgba(234,240,255,.60);
+          padding-top: 4px;
+        }
+        .value{
+          color: rgba(234,240,255,.78);
+          font-size: 14px;
+          line-height: 1.7;
+        }
 
         @media (max-width: 720px){
-          .row{ grid-template-columns: 1fr; gap: 6px; }
-          .label{ text-transform:none; }
+          .rows{ grid-template-columns: 1fr; }
+          .label{ padding-top: 0; }
         }
       `}</style>
 
-      <div className="bg" />
+      <section className="panel">
+        <div className="inner">
+          <div className="kicker"><span className="dot" /> About</div>
 
-      <header>
-        <div className="wrap">
-          <div className="nav">
-            <a className="brand" href="/">
-              <img src="/logo.png" alt="SynAccel logo" />
-              <span>SynAccel</span>
-            </a>
-            <div className="navRight">
-              <a className="link" href="/projects">Projects</a>
-              <a className="link" href="/research">Research</a>
-              <a className="link" href="https://github.com/SynAccel" target="_blank" rel="noreferrer">
-                GitHub
-              </a>
+          <h1>SynAccel</h1>
+
+          <p>
+            SynAccel is an independent research and development initiative created to study how cybersecurity must evolve
+            as systems themselves change. Cloud-native infrastructure, AI-enabled automation, and distributed architectures
+            are reshaping attack surfaces and defensive assumptions. SynAccel exists to examine that shift early—while new
+            patterns are still forming.
+          </p>
+
+          <div className="divider" />
+
+          <div className="rows">
+            <div className="label">Focus</div>
+            <div className="value">
+              Future-facing security research across cloud environments, AI security, and resilient defensive engineering.
+            </div>
+
+            <div className="label">Method</div>
+            <div className="value">
+              Applied exploration through prototypes, adversarial simulations, and system behavior analysis under stress.
+            </div>
+
+            <div className="label">Independence</div>
+            <div className="value">
+              No product roadmap or vendor obligations—research direction stays driven by technical reality, not marketing.
             </div>
           </div>
         </div>
-      </header>
-
-      <main className="wrap">
-        <section className="card">
-          <div className="inner">
-            <div className="kicker"><span className="dot" /> About</div>
-
-            
-
-            <p className="lede">
-              SynAccel is an independent research and development initiative created to study how cybersecurity must evolve
-              as systems themselves change. Cloud-native infrastructure, AI-enabled automation, and distributed architectures
-              are reshaping attack surfaces and defensive assumptions. SynAccel exists to examine that shift early—while new
-              patterns are still forming.
-            </p>
-
-            <div className="rule" />
-
-            <div className="list">
-              <div className="row">
-                <div className="label">Focus</div>
-                <div className="value">
-                  Future-facing security research across cloud environments, AI security, and resilient defensive engineering.
-                </div>
-              </div>
-
-              <div className="row">
-                <div className="label">Method</div>
-                <div className="value">
-                  Applied exploration through prototypes, adversarial simulations, and system behavior analysis under stress.
-                </div>
-              </div>
-
-              <div className="row">
-                <div className="label">Independence</div>
-                <div className="value">
-                  No product roadmap or vendor obligations—research direction stays driven by technical reality, not marketing.
-                </div>
-              </div>
-            </div>
-
-            <footer>
-              <div className="foot">
-                <div>© {year} SynAccel.</div>
-                <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-                  <a href="/contact">Contact</a>
-                  <a href="/publications">Publications</a>
-                </div>
-              </div>
-            </footer>
-          </div>
-        </section>
-      </main>
-    </>
+      </section>
+    </main>
   );
 }
+
