@@ -1,6 +1,11 @@
 import "./globals.css";
 import Link from "next/link";
 
+export const metadata = {
+  title: "SynAccel",
+  description: "Independent applied R&D in AI security, cloud automation, and autonomous systems.",
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -11,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {/* Background */}
+        {/* Global background */}
         <div className="bg" />
 
         {/* Global Header */}
@@ -23,7 +28,7 @@ export default function RootLayout({
                 <span className="name">SynAccel</span>
               </Link>
 
-              <nav className="links">
+              <nav className="links" aria-label="Primary">
                 <Link href="/research">Research</Link>
                 <Link href="/projects">Projects</Link>
                 <Link href="/publications">Publications</Link>
@@ -31,7 +36,12 @@ export default function RootLayout({
               </nav>
 
               <div className="navCta">
-                <a className="btn" href="https://github.com/SynAccel" target="_blank">
+                <a
+                  className="btn"
+                  href="https://github.com/SynAccel"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   GitHub
                 </a>
                 <Link className="btn primary" href="/contact">
@@ -53,7 +63,11 @@ export default function RootLayout({
               <Link href="/about">About</Link>
               <Link href="/projects">Projects</Link>
               <Link href="/research">Research</Link>
-              <a href="https://github.com/SynAccel" target="_blank">
+              <a
+                href="https://github.com/SynAccel"
+                target="_blank"
+                rel="noreferrer"
+              >
                 GitHub
               </a>
             </div>
@@ -63,4 +77,5 @@ export default function RootLayout({
     </html>
   );
 }
+
 
