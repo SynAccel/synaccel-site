@@ -10,16 +10,20 @@ export async function generateStaticParams() {
 function formatDate(dateStr: string) {
   const [y, m, d] = dateStr.split("-").map(Number);
   const dt = new Date(y, (m ?? 1) - 1, d ?? 1);
-  return dt.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+  return dt.toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 }
 
-type Block =
+type PublicationBlock =
   | { type: "p"; text: string }
   | { type: "h2"; text: string }
   | { type: "ul"; items: string[] }
   | { type: "quote"; text: string };
 
-function ContentBlock({ block }: { block: Block }) {
+function ContentBlock({ block }: { block: PublicationBlock }) {
   if (block.type === "h2") return <h2 className="h2">{block.text}</h2>;
   if (block.type === "p") return <p className="p">{block.text}</p>;
   if (block.type === "quote") return <blockquote className="quote">{block.text}</blockquote>;
@@ -146,13 +150,11 @@ export default function PublicationPage({ params }: { params: { slug: string } }
         .p{
           margin: 12px 0;
           line-height: 1.75;
-          color: var(--text);
           opacity: .92;
         }
         .ul{
           margin: 12px 0 12px 18px;
           line-height: 1.75;
-          color: var(--text);
           opacity: .92;
         }
         .quote{
@@ -161,7 +163,6 @@ export default function PublicationPage({ params }: { params: { slug: string } }
           border-left: 3px solid rgba(110,168,255,.55);
           background: rgba(255,255,255,.03);
           border-radius: 10px;
-          color: var(--text);
           opacity: .92;
         }
       `}</style>
@@ -195,7 +196,7 @@ export default function PublicationPage({ params }: { params: { slug: string } }
 
               <div className="content">
                 {pub.content.map((block, i) => (
-                  <ContentBlock key={i} block={block as Block} />
+                  <ContentBlock key={i} block={block as PublicationBlock} />
                 ))}
               </div>
             </div>
@@ -205,4 +206,3 @@ export default function PublicationPage({ params }: { params: { slug: string } }
     </>
   );
 }
-
