@@ -92,34 +92,13 @@ export default function FutureOfCybersecurityArticle() {
           <h2 className="mt-10 text-xl md:text-2xl font-semibold">What the next decade will look like</h2>
 
           <ol className="mt-4 list-decimal pl-6 space-y-3">
-            <li>
-              <strong>AI-Driven SOCs will become the norm.</strong> Most tier-1 work — alert triage, ticket creation, initial
-              investigation — will be handled by AI agents running 24/7.
-            </li>
-            <li>
-              <strong>Red teams will shift to autonomous adversary simulations.</strong> AI simulators will constantly probe
-              networks, generate new attack paths, and test defenses continuously.
-            </li>
-            <li>
-              <strong>Blue teams will become automation engineers.</strong> The value shifts to designing automated playbooks,
-              adaptive detection logic, AI feedback loops, and deception environments.
-            </li>
-            <li>
-              <strong>Identity, behavior, and prediction will be the core of defense.</strong> Perimeter-based security fades;
-              behavioral analytics and predictive scoring rise.
-            </li>
-            <li>
-              <strong>AI will become a teammate, not a tool.</strong> Like autopilot: AI handles speed/scale; humans make the
-              final call.
-            </li>
-            <li>
-              <strong>Cybersecurity will feel like operating a living system.</strong> Continuous adaptation through retraining,
-              deception, and dynamic policy shifts.
-            </li>
-            <li>
-              <strong>The human role evolves.</strong> The most valuable professionals will understand AI, automation, validation,
-              and business risk alignment.
-            </li>
+            <li><strong>AI-Driven SOCs will become the norm.</strong> Most tier-1 work will be handled by AI agents running 24/7.</li>
+            <li><strong>Red teams will shift to autonomous adversary simulations.</strong> Continuous probing and evolving attack paths.</li>
+            <li><strong>Blue teams will become automation engineers.</strong> Designing playbooks, detection logic, feedback loops, and deception.</li>
+            <li><strong>Identity, behavior, and prediction will be the core of defense.</strong> Perimeter fades; modeling rises.</li>
+            <li><strong>AI will become a teammate, not a tool.</strong> AI handles scale; humans make the final call.</li>
+            <li><strong>Cybersecurity will feel like operating a living system.</strong> Continuous adaptation and retraining.</li>
+            <li><strong>The human role evolves.</strong> AI literacy, automation architecture, validation, and risk alignment.</li>
           </ol>
 
           <p className="mt-6 leading-relaxed">
@@ -128,10 +107,8 @@ export default function FutureOfCybersecurityArticle() {
           </p>
 
           <p className="mt-4 leading-relaxed">
-            As the cyber security landscape transforms, the divide between humans and machine capabilities is becoming a
-            partnership rather than a replacement. The future wont belong to the fastest typers or the biggest red vs. blue
-            teams — it will belong to those who can harness AI, automation, and adaptive systems to stay ahead of threats
-            moving at machine speed.
+            The future wont belong to the fastest typers or the biggest red vs. blue teams — it will belong to those who can
+            harness AI, automation, and adaptive systems to stay ahead of threats moving at machine speed.
           </p>
         </article>
       </section>
