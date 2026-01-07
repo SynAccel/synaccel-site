@@ -18,7 +18,7 @@ export type Publication = {
 export const publications: Publication[] = [
   {
     slug: "ai-and-cybersecurity-evolution",
-    title: "AI and cybersecurity: the shift from manual defense to adaptive systems",
+    title: "The Future of Cybersecurity Will Be AI + Automation, Not Traditional Red vs. Blue",
     date: "2025-12-10",
     summary:
       "Why the script era gave way to automated detection and response — and how ai accelerates the transition to adaptive security loops.",
