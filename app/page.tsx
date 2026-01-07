@@ -28,57 +28,13 @@ export default function HomePage() {
   return (
     <>
       <style>{`
-        :root{
-          --bg: #070A12;
-          --panel: rgba(255,255,255,.04);
-          --text: #EAF0FF;
-          --muted: rgba(234,240,255,.70);
-          --border: rgba(234,240,255,.10);
-
-          --accent: #6EA8FF;
-          --accent2:#8BFFE8;
-
-          --max: 1120px;
-          --radius: 18px;
-          --shadow: 0 24px 80px rgba(0,0,0,.55);
-          --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-        }
-
-        *{ box-sizing:border-box; }
-        html,body{ height:100%; }
-        body{
-          margin:0;
-          font-family: var(--font);
-          color: var(--text);
-          background: var(--bg);
-          overflow-x:hidden;
-        }
+        /* NOTE:
+          Global theme vars + body styles + .bg are now in app/globals.css
+          and the <div class="bg" /> is rendered once in app/layout.tsx
+        */
 
         a{ color:inherit; text-decoration:none; }
         .wrap{ max-width: var(--max); margin:0 auto; padding: 0 18px; }
-
-        /* Background */
-        .bg{
-          position: fixed;
-          inset: 0;
-          z-index: -1;
-          pointer-events: none;
-          background:
-            radial-gradient(900px 520px at 18% 8%, rgba(110,168,255,.16), transparent 58%),
-            radial-gradient(900px 520px at 82% 86%, rgba(139,255,232,.08), transparent 62%),
-            linear-gradient(to bottom, rgba(255,255,255,.02), transparent 40%);
-        }
-        .bg::after{
-          content:"";
-          position:absolute;
-          inset:0;
-          opacity:.09;
-          background-image:
-            linear-gradient(rgba(234,240,255,.12) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(234,240,255,.12) 1px, transparent 1px);
-          background-size: 64px 64px;
-          mask-image: radial-gradient(1000px 520px at 50% 18%, rgba(0,0,0,.95), transparent 72%);
-        }
 
         /* Header / Nav */
         header{
@@ -227,7 +183,7 @@ export default function HomePage() {
           border-color: rgba(234,240,255,.24);
         }
 
-        /* Hero & rest (same as before, trimmed for brevity but functional) */
+        /* Hero & rest */
         main{ padding: 34px 0 60px; }
         .hero{
           margin-top: 26px;
@@ -388,8 +344,6 @@ export default function HomePage() {
         }
       `}</style>
 
-      <div className="bg" />
-
       <header>
         <div className="wrap">
           <div className="nav" ref={menuRef}>
@@ -426,12 +380,25 @@ export default function HomePage() {
 
             {open && (
               <div className="menu" role="menu" aria-label="Mobile">
-                <a role="menuitem" href="/research" onClick={() => setOpen(false)}>Research</a>
-                <a role="menuitem" href="/projects" onClick={() => setOpen(false)}>Projects</a>
-                <a role="menuitem" href="/publications" onClick={() => setOpen(false)}>Publications</a>
-                <a role="menuitem" href="/about" onClick={() => setOpen(false)}>About</a>
+                <a role="menuitem" href="/research" onClick={() => setOpen(false)}>
+                  Research
+                </a>
+                <a role="menuitem" href="/projects" onClick={() => setOpen(false)}>
+                  Projects
+                </a>
+                <a role="menuitem" href="/publications" onClick={() => setOpen(false)}>
+                  Publications
+                </a>
+                <a role="menuitem" href="/about" onClick={() => setOpen(false)}>
+                  About
+                </a>
                 <div className="row">
-                  <a href="https://github.com/SynAccel" target="_blank" rel="noreferrer" onClick={() => setOpen(false)}>
+                  <a
+                    href="https://github.com/SynAccel"
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => setOpen(false)}
+                  >
                     GitHub
                   </a>
                   <a href="/contact" onClick={() => setOpen(false)}>
@@ -448,7 +415,9 @@ export default function HomePage() {
         <section className="hero">
           <div className="heroInner">
             <div>
-              <div className="kicker"><span className="dot" /> Independent R&amp;D • Cybersecurity • Cloud • AI Security</div>
+              <div className="kicker">
+                <span className="dot" /> Independent R&amp;D • Cybersecurity • Cloud • AI Security
+              </div>
 
               <h1>Protecting Autonomous, AI-Driven, and Distributed Systems.</h1>
 
