@@ -28,7 +28,7 @@ export const publications: Publication[] = [
     readTime: "8 min",
     tags: ["AI Security", "Automation", "SOC", "Strategy", "Defensive Engineering"],
     // Optional: drop an image in /public and uncomment:
-    // heroImage: "/publications/future-ai-automation.png",
+    heroImage: "/publications/Article_evolution_of_cyber.png",
     content: [
       { type: "p", text: "Cybersecurity is changing faster than people realize. Within the last few years, AI has exploded onto the scene, powered by tools from OpenAI that many of us use every day. Traditional red-team vs. blue-team skill sets were designed for a world of manual attacks and manual defenses." },
       { type: "p", text: "But the reality is that cybersecurity didn’t start this way. In the early days, everything was simpler — but also harder. Attacks were mostly manual, defenses were manual, and if something broke, someone had to sit there and figure it out line by line. Then we shifted into the “script era,” where both attackers and defenders automated repetitive tasks. Suddenly, exploitation frameworks, scanners, and defensive scripts became normal tools." },
