@@ -2,6 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPublicationBySlug, publicationsSorted, PublicationBlock } from "../data";
 
+export const dynamic = "force-static";
+
 export async function generateStaticParams() {
   return publicationsSorted.map((p) => ({ slug: p.slug }));
 }
@@ -13,16 +15,12 @@ function formatDate(dateStr: string) {
 }
 
 function ContentBlock({ block }: { block: PublicationBlock }) {
-  if (block.type === "h2") {
-    return <h2 className="mt-10 text-xl md:text-2xl font-semibold">{block.text}</h2>;
-  }
+  if (block.type === "h2") return <h2 className="mt-10 text-xl md:text-2xl font-semibold">{block.text}</h2>;
 
   if (block.type === "ul") {
     return (
       <ul className="mt-4 list-disc pl-6 space-y-2">
-        {block.items.map((item, i) => (
-          <li key={i}>{item}</li>
-        ))}
+        {block.items.map((item, i) => <li key={i}>{item}</li>)}
       </ul>
     );
   }
@@ -30,9 +28,7 @@ function ContentBlock({ block }: { block: PublicationBlock }) {
   if (block.type === "ol") {
     return (
       <ol className="mt-4 list-decimal pl-6 space-y-2">
-        {block.items.map((item, i) => (
-          <li key={i}>{item}</li>
-        ))}
+        {block.items.map((item, i) => <li key={i}>{item}</li>)}
       </ol>
     );
   }
@@ -54,7 +50,6 @@ export default function PublicationPage({ params }: { params: { slug: string } }
 
   return (
     <main className="container">
-      {/* Framed card like About */}
       <section className="card max-w-5xl mx-auto p-8 md:p-10">
         <div className="mb-8">
           <Link href="/publications" className="text-sm text-muted hover:underline">
@@ -76,11 +71,10 @@ export default function PublicationPage({ params }: { params: { slug: string } }
         </header>
 
         <article className="max-w-3xl">
-          {pub.content.map((block, i) => (
-            <ContentBlock key={i} block={block} />
-          ))}
+          {pub.content.map((block, i) => <ContentBlock key={i} block={block} />)}
         </article>
       </section>
     </main>
   );
 }
+
